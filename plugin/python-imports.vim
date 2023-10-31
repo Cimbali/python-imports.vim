@@ -78,7 +78,7 @@ if has("python") || has("python3")
   endif
   if !exists("g:pythonBuiltinModules")
     let g:pythonBuiltinModules = {}
-    exec s:python "for m in sys.builtin_module_names: vim.command(\"let g:pythonBuiltinModules['%s'] = ''\" % m)"
+    exec s:python "for m in sys.builtin_module_names + tuple(getattr(sys, 'stdlib_module_names', [])): vim.command(\"let g:pythonBuiltinModules['%s'] = ''\" % m)"
   endif
   if !exists("g:pythonExtModuleSuffix")
     exec s:python "import sysconfig"
