@@ -139,7 +139,7 @@ def parse_python_imports_cfg(filename: str = DEFAULT_CONFIG_FILE, verbose: bool 
             for line in joined_lines(strip_comments(f, filename)):
                 for name in parse_line(line):
                     if verbose >= 2:
-                        print(name)
+                        vim.command(f'echom {name}')
                     vim.command("let g:pythonImports['%s'] = '%s'" % (name.name, name.modname))
                     if name.has_alias:
                         vim.command("let g:pythonImportAliases['%s'] = '%s'"
@@ -147,4 +147,4 @@ def parse_python_imports_cfg(filename: str = DEFAULT_CONFIG_FILE, verbose: bool 
                     continue
     except (Error, IOError) as e:
         if verbose:
-            print("Failed to load %s: %s" % (filename, e))
+            vim.command('echom "Failed to load %s: %s"' % (filename, e))
